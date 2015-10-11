@@ -1,0 +1,22 @@
+extends layout
+block append head
+	link(href="/stylesheets/sensor-photos.css", rel="stylesheet",type="text/css", media="screen")
+
+block content
+	div(class="container")
+		h3.max-value
+		.btn-group(role='group', aria-label='...')
+			button.btn.btn-default.btn-start(type='button') Start
+			button.btn.btn-default.btn-stop(type='button') Stop
+		#alcohol-chart
+
+				
+		
+block scripts
+	script(src="/javascripts/canvasjs.js")
+	script(src="/javascripts/jquery.canvasjs.js")
+	script(src='/socket.io/socket.io.js')
+	script(src="/javascripts/alcohol-chart.js")
+
+
+	

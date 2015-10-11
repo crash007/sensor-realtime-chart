@@ -3,65 +3,60 @@
  * Module dependencies.
  */
 
-var express = require('express')
+var express = require('express.io')
   , logger = require('morgan')
   , cookieParser = require('cookie-parser')
-  , bodyParser = require('body-parser')
-  , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , about = require('./routes/about')
-  , sensors = require('./routes/sensors')
-  , edit = require('./routes/edit')
-  , $ = require('jquery')
-  , jQuery = require('jquery');
+  methodOverride = require('method-override'),
+  session = require('express-session');
 
-//Database
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/my-node-project');
+var SerialPort = require("serialport").SerialPort;
 
 var app = express();
 
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
-
+app.http().io();
 
 // all environments
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+app.use(logger('combined'));
+app.use(cookieParser());
 
-app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/users/userlist', user.userlist);
-app.get('/about', about.about);
-app.get('/sensors', sensors.sensors);
-app.get('/sensors/data', sensors.sensordata);
-app.get('/sensors/sensor-list', sensors.sensorList);
-app.get('/edit/sensors', edit.sensors);
-app.get('/edit/data', edit.data);
-app.post('/edit/add-sensor', edit.addSensor);
-app.post('/edit/edit-sensor', edit.editSensor);
-app.post('/edit/add-data', edit.addData);
-app.post('/edit/edit-data', edit.editData);
-app.post('/edit/del-sensor', edit.delSensor);
-app.post('/edit/del-data', edit.delData);
+app.use(methodOverride('X-HTTP-Method-Override'));  
+app.use(session({secret: 'supersecret', saveUninitialized: true, resave: true}));
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+
+
+app.io.route('ready', function(req) {
+	console.log('ready event received');
+	 var serialport = new SerialPort("/dev/ttyUSB1",{
+		  baudrate: 9600,
+		  parser: require("serialport").parsers.readline("\n")
+	}); // replace this address with your port address
+
+	 
+	serialport.on('open', function(){
+		  // Now server is connected to Arduino
+		  console.log('Serial Port Opend');
+
+	      serialport.on('data', function(data){
+	    	  var values = data.split(/\s+/);
+	    	  var result=[];
+	    	  	    
+	    	  //console.log(result);
+	              req.io.emit('data', values);
+	      });
+		  
+	});
+
 });
+
+var routes = require('./routes/index')();
+app.use('/', routes);
+
+app.listen(3000);

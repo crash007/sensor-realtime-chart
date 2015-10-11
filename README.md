@@ -1,24 +1,8 @@
 
 
-# my-node-project
+# Analog sensor display in realtime
+This project displays a analog value in a bar chart in real time with websockets.
 
+Perfect base for displaying realtime sensor data in a web application.
 
-
-## Usage
-node app.js
-
-
-## Developing
-
-
-## Install
-Install nodejs and npm  
-Run:  
-npm install express jade morgan cookie-parser body-parser jquery mongodb monk  
-
-### Tools
-
-Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
- ([Eclipse Marketplace](http://marketplace.eclipse.org/content/nodeclipse), [site](http://www.nodeclipse.org))   
-
-Nodeclipse is free open-source project that grows with your contributions.
+Node express, Express.io, sockets.io, canvasjs, bootstrap
