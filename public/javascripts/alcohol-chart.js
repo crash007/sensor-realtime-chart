@@ -52,7 +52,7 @@ $('.btn-calc').click(function(){
 var maxValue = 0;
 sio.on('data', function(data) {
 
-	var chart = $('#gyro-chart').CanvasJSChart();
+	var chart = $('#alcohol-chart').CanvasJSChart();
 		// values.push(data);
 	 console.log(data);
          var value = parseFloat(data[0]);
