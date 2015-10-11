@@ -18,46 +18,12 @@ html
       <!-- script(src="../../../../assets/js/ie-emulation-modes-warning.js") -->
     
     
-  body
-    .navbar-wrapper
-      .container
-        nav(class="navbar navbar-inverse navbar-static-top")      
-          div.container
-            div.navbar-header
-              button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
-                span(class="sr-only") Toggle navigation
-                span(class="icon-bar")
-                span(class="icon-bar")
-                span(class="icon-bar")
-          
-              a(class="navbar-brand", href="/") IOT Sensors
-        
-            div(id="navbar", class="collapse navbar-collapse")
-                ul(class="nav navbar-nav")
-                  li 
-                    a(href="/sensors") Sensors
-                  li 
-                    a(href="/users") Users  
-                  li 
-                    a(href="/charts") Charts
-                  li
-                    a(href="/about") About
-                  li
-                    a
-                  if(user)
-                    li
-                      a(href="/user") #{user.username}                
-                  li
-                    if(user)
-                      a(href="/logout") Sign out
-                    else
-                      a(href="/signin") Sign in
-  
+  body 
     block content
     
     footer(class="footer")
       div(class="container")
-        p(class="text-muted") IOT Sensors collection
+        p(class="text-muted") Footer
       
     
     block scripts    

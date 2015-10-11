@@ -2,9 +2,9 @@
  * New node file
  */
 
-var dps = [{label:'alkohol'}]
+var dps = [{label:'Alcohol'}]
 function setupChart() {
-	$("#gyro-chart").CanvasJSChart({ // Pass chart options
+	$("#alcohol-chart").CanvasJSChart({ // Pass chart options
 	    axisY: {
 		maximum: 1025,
 		minimum: 0
@@ -36,7 +36,6 @@ console.log(sio.socket);
     }else{
     	console.log('Reconnect');
     	sio.socket.connect();
-    	//socket= io.connect();
     	sio.emit('ready');
     }
 });
@@ -53,8 +52,6 @@ $('.btn-calc').click(function(){
 var maxValue = 0;
 sio.on('data', function(data) {
 
-
-	 //console.log(data);
 	var chart = $('#gyro-chart').CanvasJSChart();
 		// values.push(data);
 	 console.log(data);
@@ -63,9 +60,7 @@ sio.on('data', function(data) {
 	maxValue=value;
 	$('.max-value').html('<h3>Max:'+value+'</h3>');
     }
-	 //chart.options.data[0].dataPoints.push({ y: parseFloat(data[0]),x:1 });
-	 //	     chart.options.data[1].dataPoints.push({ y: yv[2],x:i });
-    dps[0]={y:value, label:"Alkohol"};
+    dps[0]={y:value, label:"Alcohol"};
 		 
     chart.render();
 
