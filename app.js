@@ -79,8 +79,8 @@ app.use(function(req,res,next){
 
 app.io.route('ready', function(req) {
 	console.log('ready event received');
-	 var serialport = new SerialPort("/dev/ttyUSB0",{
-		  baudrate: 115200,
+	 var serialport = new SerialPort("/dev/ttyUSB1",{
+		  baudrate: 9600,
 		  parser: require("serialport").parsers.readline("\n")
 	}); // replace this address with your port address
 
