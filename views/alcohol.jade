@@ -1,16 +1,43 @@
 extends layout
 block append head
-	link(href="/stylesheets/sensor-photos.css", rel="stylesheet",type="text/css", media="screen")
+	
 
 block content
 	div(class="container")
-		h3.max-value
-		.btn-group(role='group', aria-label='...')
+		h1.header The Drunken master
+		p.lead Do you got what it takes to become the drunken master? Play to find out! 
+		
+		
+		#alcohol-chart
+		//.btn-group(role='group', aria-label='...')
 			button.btn.btn-default.btn-start(type='button') Start
 			button.btn.btn-default.btn-stop(type='button') Stop
-		#alcohol-chart
+		h3.max-value
+		.row
+			.col-md-12.form-inline
+				.form-group
+					label(for="username") Username
+					input(type="text", placeholder="Username").form-control#username
+					.btn-group(role='group', aria-label='...')
+						button.btn.btn-default.btn-start(type='button') Start
+					div(style="display:inline-block")
+						h4.status-running.collapse Running	
+					
+		
+		.row
+			.col-md-6
+				h3 Top list
+				table.table
+					thead
+						tr							
+							th Username
+							th Max
+							th Time
+							
+					tbody#results
+						
 
-				
+		
 		
 block scripts
 	script(src="/javascripts/canvasjs.js")

@@ -34,7 +34,7 @@ app.use(session({secret: 'supersecret', saveUninitialized: true, resave: true}))
 
 app.io.route('ready', function(req) {
 	console.log('ready event received');
-	 var serialport = new SerialPort("/dev/ttyUSB1",{
+	 var serialport = new SerialPort("/dev/ttyUSB0",{
 		  baudrate: 9600,
 		  parser: require("serialport").parsers.readline("\n")
 	}); // replace this address with your port address
@@ -46,9 +46,7 @@ app.io.route('ready', function(req) {
 
 	      serialport.on('data', function(data){
 	    	  var values = data.split(/\s+/);
-	    	  var result=[];
-	    	  	    
-	    	  //console.log(result);
+	    	  console.log(values);
 	              req.io.emit('data', values);
 	      });
 		  

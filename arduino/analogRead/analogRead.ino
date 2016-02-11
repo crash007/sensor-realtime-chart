@@ -10,5 +10,5 @@ void loop() {
   int value = analogRead(A7);
   //Serial.print("sensor = " );
   Serial.println(value);
- delay(250);
+ delay(200);
 }
